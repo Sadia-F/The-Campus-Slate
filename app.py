@@ -32,8 +32,7 @@ staff = [
         'major': 'Communication Arts',
         'year': 'Senior',
         'image': '👤',
-        'email': 'skumar@nyit.edu',
-        'articles_written': ['The Campus Slate: A New Era', 'Student Voices Matter']
+        'email': 'skumar@nyit.edu'
     },
     {
         'id': 'inaya-syed',
@@ -43,8 +42,7 @@ staff = [
         'major': 'Mechanical Engineering',
         'year': 'Senior',
         'image': '👩‍💻',
-        'email': 'isyed@nyit.edu',
-        'articles_written': ['New Startup Center: A NESTS Course Exclusive', '10 Tips to Save Money']
+        'email': 'isyed@nyit.edu'
     },
     {
         'id': 'kevin-horton',
@@ -54,8 +52,7 @@ staff = [
         'major': 'Communication Arts',
         'year': 'Faculty',
         'image': '👨‍🏫',
-        'email': 'khorton@nyit.edu',
-        'articles_written': ['Celebrating 60 Years of The Campus Slate']
+        'email': 'khorton@nyit.edu'
     },
     {
         'id': 'sadia-ferdous',
@@ -65,8 +62,7 @@ staff = [
         'major': 'Computer Science',
         'year': 'Junior',
         'image': '👩‍💻',
-        'email': 'sferdous@nyit.edu',
-        'articles_written': ['The Badminton Club: Creating a Legacy at NYIT']
+        'email': 'sferdous@nyit.edu'
     },
     {
         'id': 'brayan-crespo',
@@ -76,8 +72,7 @@ staff = [
         'major': 'Graphic Design',
         'year': 'Senior',
         'image': '🎨',
-        'email': 'bcrespo@nyit.edu',
-        'articles_written': ['Designing the Future of Student Publications']
+        'email': 'bcrespo@nyit.edu'
     },
     {
         'id': 'ashley-alexander',
@@ -87,8 +82,7 @@ staff = [
         'major': 'Life Sciences (BS/DO)',
         'year': 'Senior',
         'image': '🎥',
-        'email': 'aalexander@nyit.edu',
-        'articles_written': ['The Death of the "Third Place"', '2025 Update on Cardiovascular Medicine']
+        'email': 'aalexander@nyit.edu'
     },
     {
         'id': 'beste-tatlican',
@@ -98,8 +92,7 @@ staff = [
         'major': 'BS/DO Program',
         'year': 'Alumna',
         'image': '👩‍⚕️',
-        'email': 'btatlican@nyit.edu',
-        'articles_written': ['The Campus Slate: A New Chapter']
+        'email': 'btatlican@nyit.edu'
     },
     {
         'id': 'mia-mancia',
@@ -109,8 +102,7 @@ staff = [
         'major': 'Communication Arts',
         'year': 'Sophomore',
         'image': '✍️',
-        'email': 'mmancia@nyit.edu',
-        'articles_written': ['The First Generation Student Experience', 'Latinx Heritage Month']
+        'email': 'mmancia@nyit.edu'
     },
     {
         'id': 'camille-floyd',
@@ -120,8 +112,7 @@ staff = [
         'major': 'English',
         'year': 'Junior',
         'image': '📝',
-        'email': 'cfloyd@nyit.edu',
-        'articles_written': ['Campus Voices: Student Spotlight']
+        'email': 'cfloyd@nyit.edu'
     },
     {
         'id': 'daniel-galvin-gusmano',
@@ -131,19 +122,16 @@ staff = [
         'major': 'Biology',
         'year': 'Senior',
         'image': '🔬',
-        'email': 'dgusmano@nyit.edu',
-        'articles_written': ['The First Annual Biomedical Data Science Center Retreat', '58th Annual MACUB Conference']
+        'email': 'dgusmano@nyit.edu'
     }
 ]
 
 # ===== LOGIN HELPER FUNCTIONS =====
 
 def is_logged_in():
-    """Check if user is logged in"""
     return session.get('logged_in', False)
 
 def login_required(f):
-    """Decorator to require login for routes"""
     from functools import wraps
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -208,91 +196,86 @@ def logout():
     flash('👋 You have been logged out.')
     return redirect('/')
 
-# ===== PROTECTED ROUTES (Team Only) =====
+# ===== TEAM UPLOAD ROUTES (Protected) =====
 
-@app.route("/new-article", methods=['GET', 'POST'])
+@app.route("/team-upload", methods=['GET', 'POST'])
 @login_required
-def new_article():
+def team_upload():
     if request.method == 'POST':
-        title = request.form['title']
-        content = request.form['content']
-        author = request.form['author']
-        article_date = request.form.get('article_date', datetime.datetime.now().strftime("%Y-%m-%d"))
-        section = request.form.get('section', '')
+        # Check if it's an article or PDF
+        content_type = request.form.get('content_type', 'article')
         
-        try:
-            date_obj = datetime.datetime.strptime(article_date, "%Y-%m-%d")
-            display_date = date_obj.strftime("%B %d, %Y")
-        except:
-            display_date = datetime.datetime.now().strftime("%B %d, %Y")
-        
-        image_filename = None
-        if 'image' in request.files:
-            image_file = request.files['image']
-            if image_file and image_file.filename != '':
-                if not os.path.exists('static/images'):
-                    os.makedirs('static/images')
-                
-                image_filename = f"article_{len(articles)}_{image_file.filename}"
-                image_path = os.path.join('static/images', image_filename)
-                image_file.save(image_path)
-        
-        article = {
-            'title': title,
-            'content': content,
-            'author': author,
-            'date': display_date,
-            'section': section,
-            'image': image_filename,
-            'is_pdf': False
-        }
-        articles.append(article)
-        
-        flash('✅ Article published successfully!')
-        return redirect('/')
-    
-    return render_template("new_article.html", logged_in=is_logged_in())
-
-@app.route("/upload-issue", methods=['GET', 'POST'])
-@login_required
-def upload_issue():
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            flash('No file selected')
-            return redirect('/upload-issue')
-        
-        file = request.files['file']
-        
-        if file.filename == '':
-            flash('No file selected')
-            return redirect('/upload-issue')
-        
-        if file and file.filename.endswith('.pdf'):
-            filename = file.filename
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(filepath)
+        if content_type == 'article':
+            title = request.form['title']
+            content = request.form['content']
+            author = request.form['author']
+            article_date = request.form.get('article_date', datetime.datetime.now().strftime("%Y-%m-%d"))
+            section = request.form.get('section', '')
             
-            issue_name = request.form.get('issue_name', filename.replace('.pdf', ''))
+            try:
+                date_obj = datetime.datetime.strptime(article_date, "%Y-%m-%d")
+                display_date = date_obj.strftime("%B %d, %Y")
+            except:
+                display_date = datetime.datetime.now().strftime("%B %d, %Y")
+            
+            image_filename = None
+            if 'image' in request.files:
+                image_file = request.files['image']
+                if image_file and image_file.filename != '':
+                    if not os.path.exists('static/images'):
+                        os.makedirs('static/images')
+                    image_filename = f"article_{len(articles)}_{image_file.filename}"
+                    image_path = os.path.join('static/images', image_filename)
+                    image_file.save(image_path)
             
             article = {
-                'title': f"📄 {issue_name}",
-                'content': 'Click "Read Full Issue" to view the complete PDF.',
-                'author': 'The Campus Slate',
-                'date': datetime.datetime.now().strftime("%B %d, %Y"),
-                'section': 'Archives',
-                'image': None,
-                'is_pdf': True,
-                'pdf_file': filename
+                'title': title,
+                'content': content,
+                'author': author,
+                'date': display_date,
+                'section': section,
+                'image': image_filename,
+                'is_pdf': False
             }
             articles.append(article)
+            flash('✅ Article published successfully!')
             
-            flash(f'✅ Successfully uploaded: {filename}')
-            return redirect('/')
-        else:
-            flash('❌ Please upload a PDF file')
-            return redirect('/upload-issue')
+        elif content_type == 'pdf':
+            if 'file' not in request.files:
+                flash('No file selected')
+                return redirect('/team-upload')
+            
+            file = request.files['file']
+            if file.filename == '':
+                flash('No file selected')
+                return redirect('/team-upload')
+            
+            if file and file.filename.endswith('.pdf'):
+                filename = file.filename
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                file.save(filepath)
+                
+                issue_name = request.form.get('issue_name', filename.replace('.pdf', ''))
+                
+                article = {
+                    'title': f"📄 {issue_name}",
+                    'content': 'Click "Read Full Issue" to view the complete PDF.',
+                    'author': 'The Campus Slate',
+                    'date': datetime.datetime.now().strftime("%B %d, %Y"),
+                    'section': 'Archives',
+                    'image': None,
+                    'is_pdf': True,
+                    'pdf_file': filename
+                }
+                articles.append(article)
+                flash(f'✅ Successfully uploaded: {filename}')
+            else:
+                flash('❌ Please upload a PDF file')
+                return redirect('/team-upload')
+        
+        return redirect('/')
     
-    return render_template("upload_issue.html", logged_in=is_logged_in())
+    return render_template("team_upload.html", logged_in=is_logged_in())
 
 @app.route("/delete/<int:index>")
 @login_required
@@ -311,4 +294,5 @@ def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5002)
+    port = int(os.environ.get('PORT', 5002))
+    app.run(host='0.0.0.0', port=port, debug=False)
