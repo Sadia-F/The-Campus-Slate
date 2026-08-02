@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ person.name }} - The Campus Slate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: #e8e4df;
+            color: #1a1a2e;
+        }
+        
+        .newspaper-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.15);
+            padding: 40px 50px;
+            min-height: 100vh;
+        }
+        
+        .masthead {
+            text-align: center;
+            border-bottom: 4px double #1a1a2e;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .masthead .logo {
+            font-family: 'Times New Roman', serif;
+            font-size: 4.5em;
+            font-weight: bold;
+            color: #1a1a2e;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+        
+        .masthead .logo .red {
+            color: #c41e3a;
+        }
+        
+        .masthead .subtitle {
+            font-size: 1.1em;
+            color: #555;
+            font-style: italic;
+        }
+        
+        .nav-bar {
+            background: #1a1a2e;
+            padding: 10px 20px;
+            text-align: center;
+            margin: 15px 0 25px 0;
+            border-radius: 3px;
+        }
+        
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 0 20px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+        
+        .nav-bar a:hover {
+            color: #e94560;
+        }
+        
+        .nav-bar .login-link {
+            color: #e94560;
+        }
+        
+        .nav-bar .login-link:hover {
+            color: #ff6b81;
+        }
+        
+        .flash-messages {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px 20px;
+            border-radius: 3px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .profile-container {
+            background: #fcfcfc;
+            border-left: 4px solid #c41e3a;
+            padding: 35px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .profile-avatar {
+            font-size: 6em;
+            background: #f5f0ed;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .profile-info h1 {
+            font-family: 'Times New Roman', serif;
+            font-size: 2.5em;
+            color: #1a1a2e;
+            margin-bottom: 5px;
+        }
+        
+        .profile-info .role {
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #c41e3a;
+            font-weight: bold;
+        }
+        
+        .profile-info .details {
+            font-family: 'Georgia', serif;
+            font-size: 0.95em;
+            color: #666;
+            margin-top: 8px;
+        }
+        
+        .profile-info .details span {
+            display: inline-block;
+            margin-right: 20px;
+        }
+        
+        .profile-bio {
+            font-family: 'Georgia', serif;
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: #333;
+            margin: 20px 0;
+            padding: 20px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .profile-articles h3 {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.4em;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #c41e3a;
+            padding-bottom: 8px;
+        }
+        
+        .profile-articles ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .profile-articles ul li {
+            padding: 10px 15px;
+            font-family: 'Georgia', serif;
+            color: #444;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .profile-articles ul li::before {
+            content: "📄 ";
+            color: #c41e3a;
+        }
+        
+        .profile-articles ul li a {
+            color: #1a1a2e;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .profile-articles ul li a:hover {
+            color: #c41e3a;
+        }
+        
+        .profile-contact {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .profile-contact .contact-item {
+            display: inline-block;
+            margin-right: 20px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85em;
+            color: #555;
+        }
+        
+        .profile-contact .contact-item a {
+            color: #1a1a2e;
+            text-decoration: none;
+        }
+        
+        .profile-contact .contact-item a:hover {
+            color: #c41e3a;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #1a1a2e;
+            color: white;
+            padding: 10px 25px;
+            text-decoration: none;
+            border-radius: 3px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .btn:hover {
+            background: #2d2d4e;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 26, 46, 0.3);
+        }
+        
+        .btn-back {
+            background: #c41e3a;
+        }
+        
+        .btn-back:hover {
+            background: #a01830;
+        }
+        
+        .footer {
+            border-top: 3px double #1a1a2e;
+            padding: 25px 0 10px 0;
+            margin-top: 40px;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.75em;
+            color: #888;
+        }
+        
+        @media (max-width: 768px) {
+            .newspaper-wrapper {
+                padding: 20px 15px;
+            }
+            
+            .masthead .logo {
+                font-size: 2.8em;
+            }
+            
+            .nav-bar a {
+                padding: 0 10px;
+                font-size: 0.7em;
+            }
+            
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 4em;
+            }
+            
+            .profile-info h1 {
+                font-size: 1.8em;
+            }
+            
+            .profile-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="newspaper-wrapper">
+        
+        <header class="masthead">
+            <div class="logo">
+                <span class="red">The</span> Campus <span class="red">Slate</span>
+            </div>
+            <div class="subtitle">New York Institute of Technology</div>
+        </header>
+        
+        <nav class="nav-bar">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/sections">Sections</a>
+            <a href="/archives">Archives</a>
+            <a href="/staff">Team</a>
+            {% if logged_in %}
+                <a href="/logout" class="login-link">Logout</a>
+            {% else %}
+                <a href="/login" class="login-link">🔒 Login</a>
+            {% endif %}
+        </nav>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-messages">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="profile-container">
+            
+            <div class="profile-header">
+                <div class="profile-avatar">{{ person.image }}</div>
+                <div class="profile-info">
+                    <h1>{{ person.name }}</h1>
+                    <div class="role">{{ person.role }}</div>
+                    <div class="details">
+                        <span>📚 {{ person.major }}</span>
+                        <span>🎓 {{ person.year }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-bio">
+                {{ person.bio }}
+            </div>
+            
+            <div class="profile-articles">
+                <h3>✍️ Articles by {{ person.name }}</h3>
+                <ul>
+                    {% if person.articles_written %}
+                        {% for article in person.articles_written %}
+                            <li><a href="/">{{ article }}</a></li>
+                        {% endfor %}
+                    {% else %}
+                        <li style="color: #888; font-style: italic;">No articles yet.</li>
+                    {% endif %}
+                </ul>
+            </div>
+            
+            <div class="profile-contact">
+                <div class="contact-item">📧 <a href="mailto:{{ person.email }}">{{ person.email }}</a></div>
+            </div>
+            
+        </div>
+        
+        <br>
+        <a href="/staff" class="btn btn-back">← Back to Team</a>
+        <a href="/" class="btn" style="margin-left: 10px;">← Back to Home</a>
+        
+        <footer class="footer">
+            <p>© 2026 The Campus Slate • New York Institute of Technology</p>
+        </footer>
+        
+    </div>
+</body>
+</html>

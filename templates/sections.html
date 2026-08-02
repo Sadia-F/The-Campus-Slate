@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sections - The Campus Slate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: #e8e4df;
+            color: #1a1a2e;
+        }
+        
+        .newspaper-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.15);
+            padding: 40px 50px;
+            min-height: 100vh;
+        }
+        
+        .masthead {
+            text-align: center;
+            border-bottom: 4px double #1a1a2e;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .masthead .logo {
+            font-family: 'Times New Roman', serif;
+            font-size: 4.5em;
+            font-weight: bold;
+            color: #1a1a2e;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+        
+        .masthead .logo .red {
+            color: #c41e3a;
+        }
+        
+        .masthead .subtitle {
+            font-size: 1.1em;
+            color: #555;
+            font-style: italic;
+        }
+        
+        .nav-bar {
+            background: #1a1a2e;
+            padding: 10px 20px;
+            text-align: center;
+            margin: 15px 0 25px 0;
+            border-radius: 3px;
+        }
+        
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 0 20px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+        
+        .nav-bar a:hover {
+            color: #e94560;
+        }
+        
+        .nav-bar .login-link {
+            color: #e94560;
+        }
+        
+        .nav-bar .login-link:hover {
+            color: #ff6b81;
+        }
+        
+        .flash-messages {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px 20px;
+            border-radius: 3px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin: 30px 0 40px 0;
+        }
+        
+        .section-header .main-title {
+            font-family: 'Times New Roman', serif;
+            font-size: 3em;
+            color: #1a1a2e;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+        
+        .section-header .main-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #c41e3a;
+            margin: 10px auto 0 auto;
+        }
+        
+        .section-header .sub-title {
+            font-family: 'Georgia', serif;
+            font-size: 1em;
+            color: #888;
+            font-style: italic;
+            margin-top: 15px;
+        }
+        
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .section-card {
+            background: #fcfcfc;
+            padding: 30px 25px 25px 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            text-align: center;
+            border-bottom: 4px solid transparent;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            background: white;
+            border-bottom-color: #c41e3a;
+        }
+        
+        .section-card .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: #f5f0ed;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px auto;
+            transition: all 0.3s ease;
+        }
+        
+        .section-card:hover .icon-wrapper {
+            background: #c41e3a;
+        }
+        
+        .section-card .icon {
+            font-size: 2.8em;
+            transition: all 0.3s ease;
+        }
+        
+        .section-card:hover .icon {
+            transform: scale(1.1);
+        }
+        
+        .section-card .card-number {
+            font-family: 'Arial', sans-serif;
+            font-size: 0.7em;
+            color: #ccc;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+        
+        .section-card h3 {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.6em;
+            color: #1a1a2e;
+            margin: 10px 0 8px 0;
+        }
+        
+        .section-card .divider {
+            width: 30px;
+            height: 2px;
+            background: #c41e3a;
+            margin: 10px auto;
+        }
+        
+        .section-card p {
+            font-family: 'Georgia', serif;
+            font-size: 0.92em;
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .section-card .badge {
+            display: inline-block;
+            background: #1a1a2e;
+            color: white;
+            padding: 3px 15px;
+            border-radius: 20px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.6em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .section-card:hover .badge {
+            background: #c41e3a;
+        }
+        
+        .section-card .btn-section {
+            display: inline-block;
+            background: transparent;
+            color: #1a1a2e;
+            padding: 8px 25px;
+            text-decoration: none;
+            border-radius: 3px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            margin-top: 12px;
+            border: 2px solid #1a1a2e;
+            transition: all 0.3s ease;
+        }
+        
+        .section-card .btn-section:hover {
+            background: #c41e3a;
+            color: white;
+            border-color: #c41e3a;
+        }
+        
+        .featured-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4e 100%);
+            color: white;
+            padding: 40px 50px;
+            border-radius: 4px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .featured-section h2 {
+            font-family: 'Times New Roman', serif;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .featured-section p {
+            font-family: 'Georgia', serif;
+            font-size: 1em;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto 20px auto;
+            line-height: 1.6;
+        }
+        
+        .featured-section .btn-featured {
+            display: inline-block;
+            background: #c41e3a;
+            color: white;
+            padding: 12px 35px;
+            text-decoration: none;
+            border-radius: 3px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .featured-section .btn-featured:hover {
+            background: #a01830;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(196, 30, 58, 0.4);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #1a1a2e;
+            color: white;
+            padding: 10px 25px;
+            text-decoration: none;
+            border-radius: 3px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .btn:hover {
+            background: #2d2d4e;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 26, 46, 0.3);
+        }
+        
+        .footer {
+            border-top: 3px double #1a1a2e;
+            padding: 25px 0 10px 0;
+            margin-top: 40px;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.75em;
+            color: #888;
+        }
+        
+        @media (max-width: 992px) {
+            .sections-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .newspaper-wrapper {
+                padding: 20px 15px;
+            }
+            
+            .masthead .logo {
+                font-size: 2.8em;
+            }
+            
+            .nav-bar a {
+                padding: 0 10px;
+                font-size: 0.7em;
+            }
+            
+            .section-header .main-title {
+                font-size: 2em;
+            }
+            
+            .sections-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .section-card {
+                padding: 20px;
+            }
+            
+            .featured-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="newspaper-wrapper">
+        
+        <header class="masthead">
+            <div class="logo">
+                <span class="red">The</span> Campus <span class="red">Slate</span>
+            </div>
+            <div class="subtitle">New York Institute of Technology</div>
+        </header>
+        
+        <nav class="nav-bar">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/sections">Sections</a>
+            <a href="/archives">Archives</a>
+            <a href="/staff">Team</a>
+            {% if logged_in %}
+                <a href="/logout" class="login-link">Logout</a>
+            {% else %}
+                <a href="/login" class="login-link">🔒 Login</a>
+            {% endif %}
+        </nav>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-messages">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="section-header">
+            <div class="main-title">📰 Sections</div>
+            <div class="sub-title">Explore the voices of New York Tech</div>
+        </div>
+        
+        <div class="sections-grid">
+            
+            <div class="section-card">
+                <div class="icon-wrapper">
+                    <span class="icon">🏛️</span>
+                </div>
+                <div class="card-number">— 01 —</div>
+                <h3>Campus News</h3>
+                <div class="divider"></div>
+                <p>Stay updated on everything happening at New York Tech — events, announcements, and student life on both campuses.</p>
+                <span class="badge">Latest Updates</span>
+                <br>
+                <a href="/" class="btn-section">Read More →</a>
+            </div>
+            
+            <div class="section-card">
+                <div class="icon-wrapper">
+                    <span class="icon">💬</span>
+                </div>
+                <div class="card-number">— 02 —</div>
+                <h3>Opinion</h3>
+                <div class="divider"></div>
+                <p>Perspectives, editorials, and thought-provoking pieces from the NYIT community. Share your voice.</p>
+                <span class="badge">Your Voice</span>
+                <br>
+                <a href="/" class="btn-section">Read More →</a>
+            </div>
+            
+            <div class="section-card">
+                <div class="icon-wrapper">
+                    <span class="icon">🎨</span>
+                </div>
+                <div class="card-number">— 03 —</div>
+                <h3>Arts & Culture</h3>
+                <div class="divider"></div>
+                <p>Explore creativity through art, music, theater, and cultural events on and off campus. Student stories.</p>
+                <span class="badge">Creative</span>
+                <br>
+                <a href="/" class="btn-section">Read More →</a>
+            </div>
+            
+            <div class="section-card">
+                <div class="icon-wrapper">
+                    <span class="icon">🏀</span>
+                </div>
+                <div class="card-number">— 04 —</div>
+                <h3>Sports</h3>
+                <div class="divider"></div>
+                <p>Game recaps, athlete spotlights, and all the action from NYIT athletics and intramural sports.</p>
+                <span class="badge">Game On</span>
+                <br>
+                <a href="/" class="btn-section">Read More →</a>
+            </div>
+            
+            <div class="section-card">
+                <div class="icon-wrapper">
+                    <span class="icon">🔬</span>
+                </div>
+                <div class="card-number">— 05 —</div>
+                <h3>Science & Tech</h3>
+                <div class="divider"></div>
+                <p>Innovation, research, and discoveries from NYIT's STEM community. Meet the minds shaping tomorrow.</p>
+                <span class="badge">Innovation</span>
+                <br>
+                <a href="/" class="btn-section">Read More →</a>
+            </div>
+            
+            <div class="section-card">
+                <div class="icon-wrapper">
+                    <span class="icon">🌿</span>
+                </div>
+                <div class="card-number">— 06 —</div>
+                <h3>Lifestyle</h3>
+                <div class="divider"></div>
+                <p>Wellness, fashion, food, and tips for living your best college life. Balance, community, and growth.</p>
+                <span class="badge">Student Life</span>
+                <br>
+                <a href="/" class="btn-section">Read More →</a>
+            </div>
+            
+        </div>
+        
+        <div class="featured-section">
+            <h2>✍️ Want to Contribute?</h2>
+            <p>Share your voice with the NYIT community. Whether you're a writer, photographer, or designer, we'd love to have you on our team.</p>
+            {% if logged_in %}
+                <a href="/new-article" class="btn-featured">Write an Article →</a>
+            {% else %}
+                <a href="/login" class="btn-featured">🔒 Login to Write</a>
+            {% endif %}
+        </div>
+        
+        <br>
+        <a href="/" class="btn">← Back to Home</a>
+        
+        <footer class="footer">
+            <p>© 2026 The Campus Slate • New York Institute of Technology</p>
+        </footer>
+        
+    </div>
+</body>
+</html>

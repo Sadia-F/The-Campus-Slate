@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meet the Team - The Campus Slate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: #e8e4df;
+            color: #1a1a2e;
+        }
+        
+        .newspaper-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.15);
+            padding: 40px 50px;
+            min-height: 100vh;
+        }
+        
+        .masthead {
+            text-align: center;
+            border-bottom: 4px double #1a1a2e;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .masthead .logo {
+            font-family: 'Times New Roman', serif;
+            font-size: 4.5em;
+            font-weight: bold;
+            color: #1a1a2e;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+        
+        .masthead .logo .red {
+            color: #c41e3a;
+        }
+        
+        .masthead .subtitle {
+            font-size: 1.1em;
+            color: #555;
+            font-style: italic;
+        }
+        
+        .nav-bar {
+            background: #1a1a2e;
+            padding: 10px 20px;
+            text-align: center;
+            margin: 15px 0 25px 0;
+            border-radius: 3px;
+        }
+        
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 0 20px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+        
+        .nav-bar a:hover {
+            color: #e94560;
+        }
+        
+        .nav-bar .login-link {
+            color: #e94560;
+        }
+        
+        .nav-bar .login-link:hover {
+            color: #ff6b81;
+        }
+        
+        .flash-messages {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px 20px;
+            border-radius: 3px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin: 30px 0 40px 0;
+        }
+        
+        .section-header .main-title {
+            font-family: 'Times New Roman', serif;
+            font-size: 3em;
+            color: #1a1a2e;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+        
+        .section-header .main-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #c41e3a;
+            margin: 10px auto 0 auto;
+        }
+        
+        .section-header .sub-title {
+            font-family: 'Georgia', serif;
+            font-size: 1em;
+            color: #888;
+            font-style: italic;
+            margin-top: 15px;
+        }
+        
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .staff-card {
+            background: #fcfcfc;
+            padding: 25px 20px 20px 20px;
+            border-radius: 4px;
+            text-align: center;
+            border-bottom: 4px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        
+        .staff-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            background: white;
+            border-bottom-color: #c41e3a;
+        }
+        
+        .staff-card .avatar {
+            font-size: 4em;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .staff-card .name {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.3em;
+            color: #1a1a2e;
+            margin-bottom: 3px;
+        }
+        
+        .staff-card .role {
+            font-family: 'Arial', sans-serif;
+            font-size: 0.7em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #c41e3a;
+            font-weight: bold;
+        }
+        
+        .staff-card .major {
+            font-family: 'Georgia', serif;
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 5px;
+        }
+        
+        .staff-card .view-btn {
+            display: inline-block;
+            background: transparent;
+            color: #1a1a2e;
+            padding: 5px 18px;
+            border-radius: 3px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.7em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            margin-top: 12px;
+            border: 2px solid #1a1a2e;
+            transition: all 0.3s ease;
+        }
+        
+        .staff-card:hover .view-btn {
+            background: #c41e3a;
+            color: white;
+            border-color: #c41e3a;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #1a1a2e;
+            color: white;
+            padding: 10px 25px;
+            text-decoration: none;
+            border-radius: 3px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .btn:hover {
+            background: #2d2d4e;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 26, 46, 0.3);
+        }
+        
+        .footer {
+            border-top: 3px double #1a1a2e;
+            padding: 25px 0 10px 0;
+            margin-top: 40px;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.75em;
+            color: #888;
+        }
+        
+        @media (max-width: 768px) {
+            .newspaper-wrapper {
+                padding: 20px 15px;
+            }
+            
+            .masthead .logo {
+                font-size: 2.8em;
+            }
+            
+            .nav-bar a {
+                padding: 0 10px;
+                font-size: 0.7em;
+            }
+            
+            .section-header .main-title {
+                font-size: 2em;
+            }
+            
+            .staff-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="newspaper-wrapper">
+        
+        <header class="masthead">
+            <div class="logo">
+                <span class="red">The</span> Campus <span class="red">Slate</span>
+            </div>
+            <div class="subtitle">New York Institute of Technology</div>
+        </header>
+        
+        <nav class="nav-bar">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/sections">Sections</a>
+            <a href="/archives">Archives</a>
+            <a href="/staff">Team</a>
+            {% if logged_in %}
+                <a href="/logout" class="login-link">Logout</a>
+            {% else %}
+                <a href="/login" class="login-link">🔒 Login</a>
+            {% endif %}
+        </nav>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-messages">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="section-header">
+            <div class="main-title">👥 Meet the Team</div>
+            <div class="sub-title">The passionate people behind The Campus Slate</div>
+        </div>
+        
+        <div class="staff-grid">
+            {% for person in staff %}
+                <a href="/staff/{{ person.id }}" class="staff-card">
+                    <span class="avatar">{{ person.image }}</span>
+                    <div class="name">{{ person.name }}</div>
+                    <div class="role">{{ person.role }}</div>
+                    <div class="major">{{ person.major }} • {{ person.year }}</div>
+                    <span class="view-btn">View Profile →</span>
+                </a>
+            {% endfor %}
+        </div>
+        
+        <br>
+        <a href="/" class="btn">← Back to Home</a>
+        
+        <footer class="footer">
+            <p>© 2026 The Campus Slate • New York Institute of Technology</p>
+        </footer>
+        
+    </div>
+</body>
+</html>

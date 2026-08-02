@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Archives - The Campus Slate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: #e8e4df;
+            color: #1a1a2e;
+        }
+        
+        .newspaper-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.15);
+            padding: 40px 50px;
+            min-height: 100vh;
+        }
+        
+        .masthead {
+            text-align: center;
+            border-bottom: 4px double #1a1a2e;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .masthead .logo {
+            font-family: 'Times New Roman', serif;
+            font-size: 4.5em;
+            font-weight: bold;
+            color: #1a1a2e;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+        
+        .masthead .logo .red {
+            color: #c41e3a;
+        }
+        
+        .masthead .subtitle {
+            font-size: 1.1em;
+            color: #555;
+            font-style: italic;
+        }
+        
+        .nav-bar {
+            background: #1a1a2e;
+            padding: 10px 20px;
+            text-align: center;
+            margin: 15px 0 25px 0;
+            border-radius: 3px;
+        }
+        
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 0 20px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+        
+        .nav-bar a:hover {
+            color: #e94560;
+        }
+        
+        .nav-bar .login-link {
+            color: #e94560;
+        }
+        
+        .nav-bar .login-link:hover {
+            color: #ff6b81;
+        }
+        
+        .flash-messages {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px 20px;
+            border-radius: 3px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .section-title {
+            font-family: 'Times New Roman', serif;
+            font-size: 2.2em;
+            color: #1a1a2e;
+            border-bottom: 3px solid #c41e3a;
+            padding-bottom: 8px;
+            margin: 30px 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 20px 0;
+        }
+        
+        .archive-card {
+            background: #fcfcfc;
+            border-left: 4px solid #c41e3a;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: all 0.2s ease;
+            border-radius: 3px;
+        }
+        
+        .archive-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            background: white;
+        }
+        
+        .archive-card .icon {
+            font-size: 2.5em;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .archive-card h3 {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.3em;
+            color: #1a1a2e;
+            margin-bottom: 5px;
+        }
+        
+        .archive-card .date {
+            font-family: 'Arial', sans-serif;
+            font-size: 0.8em;
+            color: #888;
+        }
+        
+        .archive-card p {
+            font-family: 'Georgia', serif;
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+        
+        .archive-card .btn-archive {
+            display: inline-block;
+            background: #1a1a2e;
+            color: white;
+            padding: 8px 20px;
+            text-decoration: none;
+            border-radius: 3px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+        }
+        
+        .archive-card .btn-archive:hover {
+            background: #c41e3a;
+        }
+        
+        .archive-card .btn-pdf {
+            background: #28a745;
+        }
+        
+        .archive-card .btn-pdf:hover {
+            background: #1e7e34;
+        }
+        
+        .archive-card .badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.65em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: bold;
+        }
+        
+        .badge-pdf {
+            background: #c41e3a;
+            color: white;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #1a1a2e;
+            color: white;
+            padding: 10px 25px;
+            text-decoration: none;
+            border-radius: 3px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .btn:hover {
+            background: #2d2d4e;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 26, 46, 0.3);
+        }
+        
+        .btn-upload {
+            background: #c41e3a;
+        }
+        
+        .btn-upload:hover {
+            background: #a01830;
+            box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3);
+        }
+        
+        .upload-box {
+            background: #f5f3f0;
+            padding: 25px;
+            border-radius: 3px;
+            margin: 30px 0;
+            text-align: center;
+            border: 1px solid #e0dbd6;
+        }
+        
+        .upload-box h3 {
+            font-family: 'Times New Roman', serif;
+            color: #1a1a2e;
+            margin-bottom: 5px;
+        }
+        
+        .upload-box p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .footer {
+            border-top: 3px double #1a1a2e;
+            padding: 25px 0 10px 0;
+            margin-top: 40px;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.75em;
+            color: #888;
+        }
+        
+        @media (max-width: 768px) {
+            .newspaper-wrapper {
+                padding: 20px 15px;
+            }
+            
+            .masthead .logo {
+                font-size: 2.8em;
+            }
+            
+            .nav-bar a {
+                padding: 0 10px;
+                font-size: 0.7em;
+            }
+            
+            .archive-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="newspaper-wrapper">
+        
+        <header class="masthead">
+            <div class="logo">
+                <span class="red">The</span> Campus <span class="red">Slate</span>
+            </div>
+            <div class="subtitle">New York Institute of Technology</div>
+        </header>
+        
+        <nav class="nav-bar">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/sections">Sections</a>
+            <a href="/archives">Archives</a>
+            <a href="/staff">Team</a>
+            {% if logged_in %}
+                <a href="/logout" class="login-link">Logout</a>
+            {% else %}
+                <a href="/login" class="login-link">🔒 Login</a>
+            {% endif %}
+        </nav>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-messages">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <h2 class="section-title">📚 Archives</h2>
+        
+        <div class="archive-grid">
+            {% if articles %}
+                {% for article in articles %}
+                    {% if article.is_pdf %}
+                        <div class="archive-card">
+                            <span class="icon">📄</span>
+                            <h3>{{ article.issue }}</h3>
+                            <div class="date">📅 {{ article.date }}</div>
+                            <p>{{ article.content }}</p>
+                            <span class="badge badge-pdf">PDF Issue</span>
+                            <br><br>
+                            <a href="/view-pdf/{{ article.pdf_file }}" class="btn-archive btn-pdf" target="_blank">📖 Read Full Issue</a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <div class="archive-card" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                    <span class="icon" style="font-size: 4em;">📭</span>
+                    <h3>No PDF Issues Yet</h3>
+                    <p>Upload your first issue to start building the archive.</p>
+                    <br>
+                    {% if logged_in %}
+                        <a href="/upload-issue" class="btn btn-upload">📤 Upload Issue PDF</a>
+                    {% else %}
+                        <a href="/login" class="btn btn-upload">🔒 Login to Upload</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="upload-box">
+            <h3>📤 Have a past issue to share?</h3>
+            <p>Upload PDF files of past Campus Slate issues to build your digital archive.</p>
+            {% if logged_in %}
+                <a href="/upload-issue" class="btn btn-upload">📤 Upload Issue PDF</a>
+            {% else %}
+                <a href="/login" class="btn btn-upload">🔒 Login to Upload</a>
+            {% endif %}
+        </div>
+        
+        <br>
+        <a href="/" class="btn">← Back to Home</a>
+        
+        <footer class="footer">
+            <p>© 2026 The Campus Slate • New York Institute of Technology</p>
+        </footer>
+        
+    </div>
+</body>
+</html>

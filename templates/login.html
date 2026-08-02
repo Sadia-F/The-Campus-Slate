@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - The Campus Slate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: #e8e4df;
+            color: #1a1a2e;
+        }
+        
+        .login-wrapper {
+            max-width: 500px;
+            margin: 100px auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.15);
+            padding: 50px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .login-wrapper .logo {
+            font-family: 'Times New Roman', serif;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #1a1a2e;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+        }
+        
+        .login-wrapper .logo .red {
+            color: #c41e3a;
+        }
+        
+        .login-wrapper .subtitle {
+            color: #888;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        
+        .login-wrapper .lock-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+        }
+        
+        .login-wrapper input[type="password"] {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #ddd;
+            border-radius: 3px;
+            font-size: 18px;
+            font-family: 'Georgia', serif;
+            text-align: center;
+            transition: border-color 0.2s ease;
+            margin-bottom: 15px;
+        }
+        
+        .login-wrapper input[type="password"]:focus {
+            border-color: #c41e3a;
+            outline: none;
+        }
+        
+        .login-wrapper .btn {
+            width: 100%;
+            padding: 14px;
+            background: #c41e3a;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-family: 'Arial', sans-serif;
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .login-wrapper .btn:hover {
+            background: #a01830;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(196, 30, 58, 0.3);
+        }
+        
+        .flash-messages {
+            padding: 12px 15px;
+            border-radius: 3px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .flash-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .flash-error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left-color: #dc3545;
+        }
+        
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            color: #888;
+            text-decoration: none;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85em;
+        }
+        
+        .back-link:hover {
+            color: #1a1a2e;
+        }
+        
+        .footer {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.75em;
+            color: #888;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="lock-icon">🔒</div>
+        <div class="logo">
+            <span class="red">The</span> Campus <span class="red">Slate</span>
+        </div>
+        <div class="subtitle">Team Member Login</div>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-messages {% if 'Incorrect' in message %}flash-error{% else %}flash-success{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form action="/login" method="POST">
+            <input type="password" name="password" placeholder="Enter team password..." required autofocus>
+            <button type="submit" class="btn">🔑 Log In</button>
+        </form>
+        
+        <a href="/" class="back-link">← Back to Home</a>
+    </div>
+    
+    <div class="footer">
+        <p>© 2026 The Campus Slate • New York Institute of Technology</p>
+    </div>
+</body>
+</html>

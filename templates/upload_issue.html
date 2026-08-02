@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Issue - The Campus Slate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: #e8e4df;
+            color: #1a1a2e;
+        }
+        
+        .newspaper-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.15);
+            padding: 40px 50px;
+            min-height: 100vh;
+        }
+        
+        .masthead {
+            text-align: center;
+            border-bottom: 4px double #1a1a2e;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .masthead .logo {
+            font-family: 'Times New Roman', serif;
+            font-size: 4.5em;
+            font-weight: bold;
+            color: #1a1a2e;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+        
+        .masthead .logo .red {
+            color: #c41e3a;
+        }
+        
+        .masthead .subtitle {
+            font-size: 1.1em;
+            color: #555;
+            font-style: italic;
+        }
+        
+        .nav-bar {
+            background: #1a1a2e;
+            padding: 10px 20px;
+            text-align: center;
+            margin: 15px 0 25px 0;
+            border-radius: 3px;
+        }
+        
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 0 20px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+        
+        .nav-bar a:hover {
+            color: #e94560;
+        }
+        
+        .nav-bar .login-link {
+            color: #e94560;
+        }
+        
+        .nav-bar .login-link:hover {
+            color: #ff6b81;
+        }
+        
+        .flash-messages {
+            padding: 12px 20px;
+            border-radius: 3px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .flash-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .flash-error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left-color: #dc3545;
+        }
+        
+        .section-title {
+            font-family: 'Times New Roman', serif;
+            font-size: 2.2em;
+            color: #1a1a2e;
+            border-bottom: 3px solid #c41e3a;
+            padding-bottom: 8px;
+            margin: 30px 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .upload-container {
+            background: #fcfcfc;
+            border-left: 4px solid #c41e3a;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        
+        .drop-zone {
+            border: 3px dashed #ddd;
+            border-radius: 3px;
+            padding: 60px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .drop-zone:hover {
+            border-color: #c41e3a;
+            background-color: #fdf0f2;
+        }
+        
+        .drop-zone.dragover {
+            border-color: #c41e3a;
+            background-color: #fdf0f2;
+        }
+        
+        .drop-zone-icon {
+            font-size: 60px;
+            color: #ddd;
+        }
+        
+        .drop-zone-text {
+            color: #666;
+            font-size: 1.1em;
+            font-family: 'Georgia', serif;
+        }
+        
+        .drop-zone-subtext {
+            color: #999;
+            font-size: 0.9em;
+        }
+        
+        input[type="file"] {
+            display: none;
+        }
+        
+        label {
+            font-weight: bold;
+            color: #1a1a2e;
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 5px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 16px;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+        
+        input[type="text"]:focus {
+            border-color: #c41e3a;
+            outline: none;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #c41e3a;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 3px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            background: #a01830;
+        }
+        
+        .btn-dark {
+            background: #1a1a2e;
+        }
+        
+        .btn-dark:hover {
+            background: #2d2d4e;
+        }
+        
+        .tips {
+            background: #f5f3f0;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 3px;
+            border: 1px solid #e0dbd6;
+        }
+        
+        .tips h4 {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.2em;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+        
+        .tips ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .tips ul li {
+            padding: 5px 0;
+            color: #555;
+            font-family: 'Georgia', serif;
+        }
+        
+        .tips ul li::before {
+            content: "📌 ";
+        }
+        
+        .footer {
+            border-top: 3px double #1a1a2e;
+            padding: 25px 0 10px 0;
+            margin-top: 40px;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.75em;
+            color: #888;
+        }
+        
+        @media (max-width: 768px) {
+            .newspaper-wrapper {
+                padding: 20px 15px;
+            }
+            
+            .masthead .logo {
+                font-size: 2.8em;
+            }
+            
+            .nav-bar a {
+                padding: 0 10px;
+                font-size: 0.7em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="newspaper-wrapper">
+        
+        <header class="masthead">
+            <div class="logo">
+                <span class="red">The</span> Campus <span class="red">Slate</span>
+            </div>
+            <div class="subtitle">New York Institute of Technology</div>
+        </header>
+        
+        <nav class="nav-bar">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/sections">Sections</a>
+            <a href="/archives">Archives</a>
+            <a href="/staff">Team</a>
+            {% if logged_in %}
+                <a href="/logout" class="login-link">Logout</a>
+            {% else %}
+                <a href="/login" class="login-link">🔒 Login</a>
+            {% endif %}
+        </nav>
+        
+        <h2 class="section-title">📄 Upload Issue PDF</h2>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-messages {% if 'Error' in message or 'No' in message or 'Please' in message %}flash-error{% else %}flash-success{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="upload-container">
+            <form action="/upload-issue" method="POST" enctype="multipart/form-data">
+                <div class="drop-zone" id="dropZone">
+                    <div class="drop-zone-icon">📄</div>
+                    <div class="drop-zone-text">Drag & drop your PDF here</div>
+                    <div class="drop-zone-subtext">or click to browse files</div>
+                    <input type="file" name="file" id="fileInput" accept=".pdf">
+                </div>
+                
+                <label>Issue Name</label>
+                <input type="text" name="issue_name" placeholder="e.g., October 2025 Issue">
+                
+                <button type="submit" class="btn">📤 Upload Issue</button>
+            </form>
+        </div>
+        
+        <div class="tips">
+            <h4>Tips for Uploading</h4>
+            <ul>
+                <li>Upload PDF files only (max 100MB)</li>
+                <li>Your PDF will be displayed directly in the browser</li>
+                <li>Enter a custom issue name or use the filename</li>
+                <li>Uploaded files are saved to the "uploads" folder</li>
+            </ul>
+        </div>
+        
+        <br>
+        <a href="/" class="btn btn-dark" style="width: auto; padding: 10px 25px;">← Back to Home</a>
+        
+        <footer class="footer">
+            <p>© 2026 The Campus Slate • New York Institute of Technology</p>
+        </footer>
+        
+    </div>
+    
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('dragover');
+        });
+        
+        dropZone.addEventListener('dragleave', function(e) {
+            this.classList.remove('dragover');
+        });
+        
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+            fileInput.files = e.dataTransfer.files;
+            if (fileInput.files.length > 0) {
+                this.querySelector('.drop-zone-text').textContent = '📎 ' + fileInput.files[0].name;
+                this.querySelector('.drop-zone-subtext').textContent = 'Click "Upload Issue" to finish';
+            }
+        });
+        
+        dropZone.addEventListener('click', function() {
+            fileInput.click();
+        });
+        
+        fileInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                dropZone.querySelector('.drop-zone-text').textContent = '📎 ' + this.files[0].name;
+                dropZone.querySelector('.drop-zone-subtext').textContent = 'Click "Upload Issue" to finish';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View PDF - The Campus Slate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: #e8e4df;
+        }
+        
+        .pdf-header {
+            background: #1a1a2e;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+        }
+        
+        .pdf-header .logo {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.5em;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        .pdf-header .logo .red {
+            color: #e94560;
+        }
+        
+        .pdf-header .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            background: #e94560;
+            border-radius: 3px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .pdf-header .nav-links a:hover {
+            background: #c73652;
+        }
+        
+        .pdf-container {
+            margin-top: 80px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        
+        .pdf-viewer {
+            width: 100%;
+            max-width: 1100px;
+            background: white;
+            border-radius: 3px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+            overflow: hidden;
+            height: 92vh;
+        }
+        
+        .pdf-viewer iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+        
+        .fallback-message {
+            padding: 60px 40px;
+            text-align: center;
+            color: #666;
+        }
+        
+        .fallback-message .icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+        }
+        
+        .fallback-message h3 {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.5em;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+        
+        .fallback-message p {
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+        
+        .fallback-message .download-link {
+            display: inline-block;
+            background: #c41e3a;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 3px;
+            text-decoration: none;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .fallback-message .download-link:hover {
+            background: #a01830;
+        }
+        
+        @media (max-width: 768px) {
+            .pdf-header {
+                padding: 12px 15px;
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+            
+            .pdf-header .logo {
+                font-size: 1.2em;
+            }
+            
+            .pdf-container {
+                margin-top: 110px;
+                padding: 10px;
+            }
+            
+            .pdf-viewer {
+                height: 80vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="pdf-header">
+        <div class="logo">
+            <span class="red">The</span> Campus <span class="red">Slate</span>
+        </div>
+        <div class="nav-links">
+            <a href="/">← Back to Home</a>
+        </div>
+    </div>
+    
+    <div class="pdf-container">
+        <div class="pdf-viewer">
+            <iframe src="{{ url_for('uploaded_file', filename=filename) }}#toolbar=1&navpanes=1&scrollbar=1&view=Fit"
+                    type="application/pdf"
+                    title="PDF Viewer">
+                <div class="fallback-message">
+                    <div class="icon">📄</div>
+                    <h3>PDF Viewer Not Available</h3>
+                    <p>Your browser cannot display PDFs directly.</p>
+                    <a href="{{ url_for('uploaded_file', filename=filename) }}" 
+                       class="download-link" 
+                       target="_blank"
+                       download>
+                        📥 Download PDF
+                    </a>
+                </div>
+            </iframe>
+        </div>
+    </div>
+</body>
+</html>
