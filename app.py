@@ -5,7 +5,10 @@ import PyPDF2
 from supabase import create_client
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key-change-this-in-production'
+app.secret_key = 'campus-slate-secret-key-2026-08-09'
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
 # ===== SUPABASE SETUP =====
 SUPABASE_URL = 'https://ymsqoqgblsuelwspssxab.supabase.co'
