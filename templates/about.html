@@ -81,15 +81,6 @@
             color: #ff6b81;
         }
         
-        .flash-messages {
-            background: #d4edda;
-            color: #155724;
-            padding: 12px 20px;
-            border-radius: 3px;
-            margin-bottom: 20px;
-            border-left: 4px solid #28a745;
-        }
-        
         .section-title {
             font-family: 'Times New Roman', serif;
             font-size: 2.2em;
@@ -254,16 +245,6 @@
                 <a href="/login" class="login-link">🔒 Login</a>
             {% endif %}
         </nav>
-        
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="flash-messages">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
         
         <h2 class="section-title">About The Campus Slate</h2>
         

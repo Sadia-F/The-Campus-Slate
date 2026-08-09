@@ -81,15 +81,6 @@
             color: #ff6b81;
         }
         
-        .flash-messages {
-            background: #d4edda;
-            color: #155724;
-            padding: 12px 20px;
-            border-radius: 3px;
-            margin-bottom: 20px;
-            border-left: 4px solid #28a745;
-        }
-        
         .section-header {
             text-align: center;
             margin: 30px 0 40px 0;
@@ -378,16 +369,6 @@
             {% endif %}
         </nav>
         
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="flash-messages">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        
         <div class="section-header">
             <div class="main-title">📰 Sections</div>
             <div class="sub-title">Explore the voices of New York Tech</div>
@@ -479,7 +460,7 @@
             <h2>✍️ Want to Contribute?</h2>
             <p>Share your voice with the NYIT community. Whether you're a writer, photographer, or designer, we'd love to have you on our team.</p>
             {% if logged_in %}
-                <a href="/new-article" class="btn-featured">Write an Article →</a>
+                <a href="/team-upload" class="btn-featured">Write an Article →</a>
             {% else %}
                 <a href="/login" class="btn-featured">🔒 Login to Write</a>
             {% endif %}

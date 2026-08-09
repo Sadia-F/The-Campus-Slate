@@ -24,7 +24,6 @@
             min-height: 100vh;
         }
         
-        /* ===== MASTHEAD ===== */
         .masthead {
             text-align: center;
             border-bottom: 4px double #1a1a2e;
@@ -70,7 +69,6 @@
             margin-top: 10px;
         }
         
-        /* ===== NAVIGATION ===== */
         .nav-bar {
             background: #1a1a2e;
             padding: 10px 20px;
@@ -96,14 +94,12 @@
         
         .nav-bar .login-link {
             color: #e94560;
-            font-size: 0.75em;
         }
         
         .nav-bar .login-link:hover {
             color: #ff6b81;
         }
         
-        /* ===== SECTION TITLES ===== */
         .section-title {
             font-family: 'Times New Roman', serif;
             font-size: 1.8em;
@@ -124,7 +120,6 @@
             margin-bottom: 20px;
         }
         
-        /* ===== ARTICLE CARDS ===== */
         .article-card {
             background: #fcfcfc;
             border-left: 4px solid #c41e3a;
@@ -242,7 +237,6 @@
             font-size: 0.7em;
         }
         
-        /* ===== EMPTY STATE ===== */
         .empty-state {
             background: #fcfcfc;
             padding: 60px 30px;
@@ -272,7 +266,6 @@
             margin: 0 auto;
         }
         
-        /* ===== WELCOME BANNER ===== */
         .welcome-banner {
             background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4e 100%);
             color: white;
@@ -297,7 +290,6 @@
             line-height: 1.6;
         }
         
-        /* ===== FOOTER ===== */
         .footer {
             border-top: 3px double #1a1a2e;
             padding: 25px 0 10px 0;
@@ -327,7 +319,6 @@
             color: #aaa;
         }
         
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .newspaper-wrapper {
                 padding: 20px 15px;
@@ -388,7 +379,6 @@
 <body>
     <div class="newspaper-wrapper">
         
-        <!-- ===== MASTHEAD ===== -->
         <header class="masthead">
             <div class="logo">
                 <span class="red">The</span> Campus <span class="red">Slate</span>
@@ -400,24 +390,25 @@
             </div>
         </header>
         
-        <!-- ===== NAVIGATION ===== -->
         <nav class="nav-bar">
             <a href="/">Home</a>
             <a href="/about">About</a>
             <a href="/sections">Sections</a>
             <a href="/archives">Archives</a>
             <a href="/staff">Team</a>
-            <a href="/login" class="login-link">Staff Login</a>
+            {% if logged_in %}
+                <a href="/logout" class="login-link">Logout</a>
+            {% else %}
+                <a href="/login" class="login-link">🔒 Login</a>
+            {% endif %}
         </nav>
         
-        <!-- ===== WELCOME BANNER ===== -->
         <div class="welcome-banner">
             <h2>📰 Welcome to The Campus Slate</h2>
             <p>Your source for news, stories, and voices from the New York Tech community. 
             Est. 1966 — student journalism at its finest.</p>
         </div>
         
-        <!-- ===== ARTICLES SECTION ===== -->
         <h2 class="section-title">Latest Articles</h2>
         <div class="section-subtitle">What's happening at New York Tech</div>
         
@@ -459,13 +450,11 @@
         {% else %}
             <div class="empty-state">
                 <div class="icon">📰</div>
-                <h3>Welcome to The Campus Slate</h3>
-                <p>We're building our digital archive. Check back soon for articles, 
-                stories, and updates from the New York Tech community.</p>
+                <h3>No Articles Yet</h3>
+                <p>Check back soon for articles, stories, and updates from the New York Tech community.</p>
             </div>
         {% endif %}
         
-        <!-- ===== FOOTER ===== -->
         <footer class="footer">
             <div class="footer-links">
                 <a href="/">Home</a>

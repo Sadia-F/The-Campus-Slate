@@ -81,15 +81,6 @@
             color: #ff6b81;
         }
         
-        .flash-messages {
-            background: #d4edda;
-            color: #155724;
-            padding: 12px 20px;
-            border-radius: 3px;
-            margin-bottom: 20px;
-            border-left: 4px solid #28a745;
-        }
-        
         .section-title {
             font-family: 'Times New Roman', serif;
             font-size: 2.2em;
@@ -297,16 +288,6 @@
             {% endif %}
         </nav>
         
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="flash-messages">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        
         <h2 class="section-title">📚 Archives</h2>
         
         <div class="archive-grid">
@@ -328,26 +309,19 @@
                 <div class="archive-card" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
                     <span class="icon" style="font-size: 4em;">📭</span>
                     <h3>No PDF Issues Yet</h3>
-                    <p>Upload your first issue to start building the archive.</p>
-                    <br>
-                    {% if logged_in %}
-                        <a href="/upload-issue" class="btn btn-upload">📤 Upload Issue PDF</a>
-                    {% else %}
-                        <a href="/login" class="btn btn-upload">🔒 Login to Upload</a>
-                    {% endif %}
+                    <p>Check back soon for archived issues.</p>
                 </div>
             {% endif %}
         </div>
         
+        <!-- Only show upload box when logged in -->
+        {% if logged_in %}
         <div class="upload-box">
             <h3>📤 Have a past issue to share?</h3>
             <p>Upload PDF files of past Campus Slate issues to build your digital archive.</p>
-            {% if logged_in %}
-                <a href="/upload-issue" class="btn btn-upload">📤 Upload Issue PDF</a>
-            {% else %}
-                <a href="/login" class="btn btn-upload">🔒 Login to Upload</a>
-            {% endif %}
+            <a href="/team-upload" class="btn btn-upload">📤 Upload Issue PDF</a>
         </div>
+        {% endif %}
         
         <br>
         <a href="/" class="btn">← Back to Home</a>
