@@ -267,30 +267,12 @@
             
             <h3>👥 Meet Our Team</h3>
             <div class="staff-grid">
+                {% for person in staff %}
                 <div class="staff-card">
-                    <div class="role">Editor-in-Chief</div>
-                    <div class="name"><a href="/staff/sameer-kumar">Sameer Kumar</a></div>
+                    <div class="role">{{ person.role }}</div>
+                    <div class="name"><a href="/staff/{{ person.id }}">{{ person.name }}</a></div>
                 </div>
-                <div class="staff-card">
-                    <div class="role">Managing Editor</div>
-                    <div class="name"><a href="/staff/inaya-syed">Inaya Syed</a></div>
-                </div>
-                <div class="staff-card">
-                    <div class="role">Faculty Advisor</div>
-                    <div class="name"><a href="/staff/kevin-horton">Prof. Kevin Horton</a></div>
-                </div>
-                <div class="staff-card">
-                    <div class="role">Webmaster</div>
-                    <div class="name"><a href="/staff/sadia-ferdous">Sadia Ferdous</a></div>
-                </div>
-                <div class="staff-card">
-                    <div class="role">Layout & Design</div>
-                    <div class="name"><a href="/staff/brayan-crespo">Brayan Crespo</a></div>
-                </div>
-                <div class="staff-card">
-                    <div class="role">Video Journalism</div>
-                    <div class="name"><a href="/staff/ashley-alexander">Ashley Alexander</a></div>
-                </div>
+                {% endfor %}
             </div>
             <p style="text-align: center;">
                 <a href="/staff" style="color: #c41e3a; text-decoration: none; font-weight: bold;">View Full Team →</a>

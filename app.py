@@ -6,9 +6,6 @@ from supabase import create_client
 
 app = Flask(__name__)
 app.secret_key = 'campus-slate-secret-key-2026-08-09'
-app.config['SESSION_COOKIE_SECURE'] = True
-app.config['SESSION_COOKIE_HTTPONLY'] = True
-app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
 # ===== SUPABASE SETUP =====
 SUPABASE_URL = 'https://ymsqoqgblsuelwspssxab.supabase.co'
@@ -24,41 +21,122 @@ staff = [
         'id': 'sameer-kumar',
         'name': 'Sameer Kumar',
         'role': 'Editor-in-Chief',
-        'bio': 'Sameer is a dedicated journalism student who has been with The Campus Slate for over 3 years.',
+        'bio': 'Sameer is a dedicated journalism student who has been with The Campus Slate for over 3 years. As Editor-in-Chief, he leads the team with vision and enthusiasm, ensuring every issue reflects the diverse voices of NYIT. He is passionate about storytelling and believes in the power of student journalism to create change.',
         'major': 'Communication Arts',
         'year': 'Senior',
         'image': '👤',
-        'email': 'skumar@nyit.edu'
+        'email': 'skumar@nyit.edu',
+        'articles_written': ['The Campus Slate: A New Era', 'Student Voices Matter', 'Not Just A Club, It\'s My Home Away From Home']
     },
     {
         'id': 'inaya-syed',
         'name': 'Inaya Syed',
         'role': 'Managing Editor',
-        'bio': 'Inaya is a mechanical engineering student who found her passion in journalism.',
+        'bio': 'Inaya is a mechanical engineering student who found her passion in journalism. As Managing Editor, she oversees the editorial process and ensures every article meets the highest standards. She founded the Pre-Dental Society and is committed to helping students find their voice.',
         'major': 'Mechanical Engineering',
         'year': 'Senior',
         'image': '👩‍💻',
-        'email': 'isyed@nyit.edu'
+        'email': 'isyed@nyit.edu',
+        'articles_written': ['New Startup Center: A NESTS Course Exclusive', '10 Tips to Save Money']
     },
     {
-        'id': 'kevin-horton',
-        'name': 'Prof. Kevin Horton',
-        'role': 'Faculty Advisor',
-        'bio': 'Professor Horton has been the Faculty Advisor for The Campus Slate since 2024.',
-        'major': 'Communication Arts',
-        'year': 'Faculty',
-        'image': '👨‍🏫',
-        'email': 'khorton@nyit.edu'
+        'id': 'brayan-crespo',
+        'name': 'Brayan Crespo',
+        'role': 'Layout & Design Editor',
+        'bio': 'Brayan is the creative force behind the visual design of The Campus Slate. He ensures every issue is visually stunning and professionally laid out. His design skills bring the publication to life.',
+        'major': 'Graphic Design',
+        'year': 'Senior',
+        'image': '🎨',
+        'email': 'bcrespo@nyit.edu',
+        'articles_written': ['Designing the Future of Student Publications']
+    },
+    {
+        'id': 'nawrin-sikder',
+        'name': 'Nawrin Sikder',
+        'role': 'Webmaster/Digital Editor',
+        'bio': 'Nawrin is a Computer Science student who manages the digital presence of The Campus Slate. She ensures the website runs smoothly and content is accessible to all readers.',
+        'major': 'Computer Science',
+        'year': 'Junior',
+        'image': '👩‍💻',
+        'email': 'nsikder@nyit.edu',
+        'articles_written': ['Digital Transformation at NYIT']
     },
     {
         'id': 'sadia-ferdous',
         'name': 'Sadia Ferdous',
         'role': 'Webmaster/Digital Editor',
-        'bio': 'Sadia is a Computer Science student who built this very website!',
+        'bio': 'Sadia is a Computer Science student who built this very website! As Webmaster, she manages the digital presence of The Campus Slate and creates the online experience for readers. She is passionate about coding and storytelling.',
         'major': 'Computer Science',
         'year': 'Junior',
         'image': '👩‍💻',
-        'email': 'sferdous@nyit.edu'
+        'email': 'sferdous@nyit.edu',
+        'articles_written': ['The Badminton Club: Creating a Legacy at NYIT']
+    },
+    {
+        'id': 'ashley-alexander',
+        'name': 'Ashley Alexander',
+        'role': 'Video Journalism Editor',
+        'bio': 'Ashley is a Life Sciences student who brings stories to life through video. As Video Journalism Editor, she creates compelling visual content and manages the Slate\'s YouTube channel. She is passionate about public health education.',
+        'major': 'Life Sciences (BS/DO)',
+        'year': 'Senior',
+        'image': '🎥',
+        'email': 'aalexander@nyit.edu',
+        'articles_written': ['The Death of the "Third Place"', '2025 Update on Cardiovascular Medicine']
+    },
+    {
+        'id': 'beste-tatlican',
+        'name': 'Beste Tatlican',
+        'role': 'Former Editor-in-Chief',
+        'bio': 'Beste led The Campus Slate through its rejuvenation as Editor-in-Chief. She was instrumental in bringing the publication back to life and launching its video journalism division. She is now pursuing a career in medicine.',
+        'major': 'BS/DO Program',
+        'year': 'Alumna',
+        'image': '👩‍⚕️',
+        'email': 'btatlican@nyit.edu',
+        'articles_written': ['The Campus Slate: A New Chapter']
+    },
+    {
+        'id': 'kevin-horton',
+        'name': 'Prof. Kevin Horton',
+        'role': 'Faculty Advisor',
+        'bio': 'Professor Horton has been the Faculty Advisor for The Campus Slate since 2024. With over 25 years of experience running The Gold Coast Gazette, he brings a wealth of knowledge and expertise. He is passionate about mentoring young journalists and helping them find their voice.',
+        'major': 'Communication Arts',
+        'year': 'Faculty',
+        'image': '👨‍🏫',
+        'email': 'khorton@nyit.edu',
+        'articles_written': ['Celebrating 60 Years of The Campus Slate']
+    },
+    {
+        'id': 'mia-mancia',
+        'name': 'Mia Mancia',
+        'role': 'Staff Writer',
+        'bio': 'Mia is a dedicated writer who covers campus life and student experiences. She is passionate about sharing the stories of first-generation students and helping others feel seen and heard.',
+        'major': 'Communication Arts',
+        'year': 'Sophomore',
+        'image': '✍️',
+        'email': 'mmancia@nyit.edu',
+        'articles_written': ['The First Generation Student Experience', 'Latinx Heritage Month']
+    },
+    {
+        'id': 'camille-floyd',
+        'name': 'Camille Floyd',
+        'role': 'Staff Writer',
+        'bio': 'Camille joined The Campus Slate with a passion for storytelling and community engagement. She covers a wide range of topics from campus events to student profiles.',
+        'major': 'English',
+        'year': 'Junior',
+        'image': '📝',
+        'email': 'cfloyd@nyit.edu',
+        'articles_written': ['Campus Voices: Student Spotlight']
+    },
+    {
+        'id': 'daniel-galvin-gusmano',
+        'name': 'Daniel Galvin Gusmano',
+        'role': 'Staff Writer',
+        'bio': 'Daniel is a science writer who covers research and innovation at NYIT. He has a talent for making complex topics accessible and engaging for all readers.',
+        'major': 'Biology',
+        'year': 'Senior',
+        'image': '🔬',
+        'email': 'dgusmano@nyit.edu',
+        'articles_written': ['The First Annual Biomedical Data Science Center Retreat', '58th Annual MACUB Conference']
     }
 ]
 
