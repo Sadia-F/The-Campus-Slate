@@ -1,8 +1,8 @@
-from flask import Flask, render_template, request, redirect, flash, send_from_directory, session
+from flask import Flask, render_template, request, redirect, flash, session
 import datetime
 import os
 import PyPDF2
-from supabase import create_client, Client
+from supabase import create_client
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-change-this-in-production'
@@ -10,7 +10,7 @@ app.secret_key = 'your-secret-key-change-this-in-production'
 # ===== SUPABASE SETUP =====
 SUPABASE_URL = 'https://ymsqoqgblsuelwspssxab.supabase.co'
 SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inltc3FvcWdibHN1ZWx3c3BzeGFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU3MDU5MDAsImV4cCI6MjEwMTI4MTkwMH0.ErRiLjxfqq0xlaQB0afuEAfvDhiS_uLAcRjyz2p8rig'
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # ===== TEAM PASSWORD =====
 TEAM_PASSWORD = "slate2026"
@@ -59,8 +59,6 @@ staff = [
     }
 ]
 
-# ===== LOGIN HELPER FUNCTIONS =====
-
 def is_logged_in():
     return session.get('logged_in', False)
 
@@ -74,27 +72,20 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-# ===== UPLOAD HELPER FUNCTIONS =====
-
 def upload_to_supabase(file, folder='articles'):
-    """Upload a file to Supabase Storage and return the public URL"""
     try:
         timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
         filename = f"{timestamp}_{file.filename}"
-        
         response = supabase.storage.from_(folder).upload(
             filename,
             file.read(),
             {'content-type': file.content_type}
         )
-        
         public_url = supabase.storage.from_(folder).get_public_url(filename)
         return public_url
     except Exception as e:
         print(f"Upload error: {e}")
         return None
-
-# ===== ROUTES =====
 
 @app.route("/")
 def home():
