@@ -2,8 +2,7 @@ from flask import Flask, render_template, request, redirect, flash, send_from_di
 import datetime
 import os
 import PyPDF2
-from supabase import create_client
-import requests
+from supabase import create_client, Client
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-change-this-in-production'
@@ -11,7 +10,7 @@ app.secret_key = 'your-secret-key-change-this-in-production'
 # ===== SUPABASE SETUP =====
 SUPABASE_URL = 'https://ymsqoqgblsuelwspssxab.supabase.co'
 SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inltc3FvcWdibHN1ZWx3c3BzeGFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU3MDU5MDAsImV4cCI6MjEwMTI4MTkwMH0.ErRiLjxfqq0xlaQB0afuEAfvDhiS_uLAcRjyz2p8rig'
-supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # ===== TEAM PASSWORD =====
 TEAM_PASSWORD = "slate2026"
