@@ -5,15 +5,15 @@ import PyPDF2
 from supabase import create_client
 
 app = Flask(__name__)
-app.secret_key = 'campus-slate-secret-key-2026-08-09'
+app.secret_key = os.environ.get('SECRET_KEY', 'campus-slate-secret-key-2026-08-09')
 
 # ===== SUPABASE SETUP =====
-SUPABASE_URL = 'https://ymsqoqgblsuelwspssxab.supabase.co'
-SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inltc3FvcWdibHN1ZWx3c3BzeGFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU3MDU5MDAsImV4cCI6MjEwMTI4MTkwMH0.ErRiLjxfqq0xlaQB0afuEAfvDhiS_uLAcRjyz2p8rig'
+SUPABASE_URL = os.environ.get('SUPABASE_URL', 'https://ymsqoqgblsuelwspssxab.supabase.co')
+SUPABASE_KEY = os.environ.get('SUPABASE_KEY', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inltc3FvcWdibHN1ZWx3c3BzeGFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU3MDU5MDAsImV4cCI6MjEwMTI4MTkwMH0.ErRiLjxfqq0xlaQB0afuEAfvDhiS_uLAcRjyz2p8rig')
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # ===== TEAM PASSWORD =====
-TEAM_PASSWORD = "slate2026"
+TEAM_PASSWORD = os.environ.get('TEAM_PASSWORD', "slate2026")
 
 # ===== STAFF DATA =====
 staff = [
@@ -310,7 +310,7 @@ def team_upload():
             
             return redirect('/')
     
-    return render_template("team_upload.html", logged_in=is_logged_in())
+    return redirect('/staff')
 
 @app.route("/delete/<int:index>")
 @login_required

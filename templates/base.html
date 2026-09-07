@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}The Campus Slate{% endblock %} — The Campus Slate</title>
+    <meta name="description" content="{% block description %}The Campus Slate is the student-run newspaper of New York Institute of Technology's Old Westbury campus.{% endblock %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div class="newspaper-wrapper">
+
+        <header class="masthead">
+            <div class="logo">
+                <span class="red">The</span> Campus <span class="red">Slate</span>
+            </div>
+            <div class="subtitle">New York Institute of Technology</div>
+            {% block masthead_extra %}{% endblock %}
+        </header>
+
+        <nav class="nav-bar">
+            <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+            <a href="/about" class="{% if request.path == '/about' %}active{% endif %}">About</a>
+            <a href="/sections" class="{% if request.path == '/sections' %}active{% endif %}">Sections</a>
+            <a href="/archives" class="{% if request.path == '/archives' %}active{% endif %}">Archives</a>
+            <a href="/staff" class="{% if request.path.startswith('/staff') %}active{% endif %}">Team</a>
+            {% if logged_in %}
+                <a href="/logout" class="login-link">Logout</a>
+            {% else %}
+                <a href="/login" class="login-link {% if request.path == '/login' %}active{% endif %}">Login</a>
+            {% endif %}
+        </nav>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-messages {% if 'Incorrect' in message %}flash-error{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/sections">Sections</a>
+                <a href="/archives">Archives</a>
+                <a href="/staff">Team</a>
+            </div>
+            <p>© 2026 The Campus Slate • New York Institute of Technology</p>
+            <p class="established">Established 1966 • Old Westbury, NY</p>
+        </footer>
+
+    </div>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
