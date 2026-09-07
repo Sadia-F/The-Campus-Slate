@@ -2,54 +2,135 @@
 {% block title %}About{% endblock %}
 
 {% block content %}
-<h2 class="section-title">About The Campus Slate</h2>
-
-<div class="about-content">
-    <h3>📰 Our Mission</h3>
-    <p>
-        The Campus Slate is the student-run newspaper of New York Institute of Technology's
-        Old Westbury campus. Established in 1966, we have been serving the NYIT community
-        for over 60 years, providing news, opinions, and creative content written by students,
-        for students.
-    </p>
-
-    <h3>📝 What We Do</h3>
-    <p>
-        We publish monthly issues covering campus events, student life, academic achievements,
-        and topics that matter to our community. Our team of writers, editors, photographers,
-        and designers work together to create a publication that reflects the diverse voices
-        of NYIT.
-    </p>
-
-    <h3>👥 Meet Our Team</h3>
-    <div class="staff-grid">
-        {% for person in staff %}
-        <div class="staff-card">
-            <div class="role">{{ person.role }}</div>
-            <div class="name"><a href="/staff/{{ person.id }}">{{ person.name }}</a></div>
-        </div>
-        {% endfor %}
-    </div>
-    <p style="text-align: center; margin-top: 10px;">
-        <a href="/staff">View Full Team →</a>
-    </p>
-
-    <h3>📬 Contact Us</h3>
-    <p>
-        <strong>Email:</strong> slate@nyit.edu<br>
-        <strong>Location:</strong> Harry Schure Hall, Room 216A<br>
-        <strong>Meeting Times:</strong> Thursdays during Free Hour
-    </p>
-
-    <h3>📋 Join The Slate</h3>
-    <p>
-        We're always looking for new members! Whether you're interested in writing,
-        photography, design, or video journalism, we'd love to have you.
-        Come to one of our meetings or reach out via email to get involved.
+<div class="about-hero">
+    <div class="kicker">The Student Newspaper of NYIT • Old Westbury</div>
+    <h2 class="section-title">About The Campus Slate</h2>
+    <p class="dropcap">
+        The Campus Slate is the student-run newspaper of New York Institute of
+        Technology's Old Westbury campus. Since 1966, we have served the NYIT
+        community with news, opinions, and creative content — thoroughly
+        student-driven, written by students for students.
     </p>
 </div>
 
-<div style="margin-top: 20px;">
-    <a href="/" class="btn">← Back to Home</a>
+<div class="stats-band">
+    <div class="stat">
+        <div class="number">60+</div>
+        <div class="label">Years of Journalism</div>
+    </div>
+    <div class="stat">
+        <div class="number">6</div>
+        <div class="label">Editorial Sections</div>
+    </div>
+    <div class="stat">
+        <div class="number">{{ staff|length }}</div>
+        <div class="label">Team Members</div>
+    </div>
+    <div class="stat">
+        <div class="number">1</div>
+        <div class="label">Campus, Countless Stories</div>
+    </div>
+</div>
+
+<div class="about-grid-2">
+    <div class="about-panel">
+        <h3>📰 Our Mission</h3>
+        <p>
+            To inform, inspire, and hold our community accountable through honest,
+            well-crafted journalism. We give a platform to perspectives that might
+            otherwise go unheard — and we do it with the independence only a
+            student-run publication can offer.
+        </p>
+    </div>
+    <div class="about-panel">
+        <h3>📝 What We Do</h3>
+        <p>
+            We publish monthly issues covering campus events, student life, academic
+            achievements, and the topics that matter to our community. Writers,
+            editors, photographers, designers, and videographers work together to
+            produce a publication that reflects the true diversity of NYIT.
+        </p>
+    </div>
+</div>
+
+<div class="history-wrap">
+    <div class="section-label-rule">
+        <h2>📜 Our History</h2>
+    </div>
+    <div class="timeline">
+        <div class="timeline-item">
+            <span class="year">1966</span>
+            <h4>First Issue Published</h4>
+            <p>
+                The Campus Slate debuts, beginning over six decades of student
+                journalism at NYIT's Old Westbury campus.
+            </p>
+        </div>
+        <div class="timeline-item">
+            <span class="year">2024</span>
+            <h4>A New Chapter</h4>
+            <p>
+                Prof. Kevin Horton joins as Faculty Advisor, and the publication
+                begins its energetic rejuvenation under a new editorial team.
+            </p>
+        </div>
+        <div class="timeline-item">
+            <span class="year">2025</span>
+            <h4>Video Journalism Division</h4>
+            <p>
+                The Slate expands beyond print, launching a video journalism
+                division to tell campus stories in new formats.
+            </p>
+        </div>
+        <div class="timeline-item">
+            <span class="year">2026</span>
+            <h4>A Digital Home of Our Own</h4>
+            <p>
+                A custom-built digital platform replaces paid web hosting — built
+                by student engineers, for the whole community to enjoy.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="about-team">
+    <div class="section-label-rule">
+        <h2>👥 Meet the Team</h2>
+    </div>
+    <div class="staff-grid">
+        {% for person in staff %}
+            <a href="/staff/{{ person.id }}" class="staff-card">
+                <span class="avatar">{{ person.image }}</span>
+                <div class="name">{{ person.name }}</div>
+                <div class="role">{{ person.role }}</div>
+            </a>
+        {% endfor %}
+    </div>
+    <div style="text-align: center; margin-top: 14px;">
+        <a href="/staff" class="btn">View Full Team →</a>
+    </div>
+</div>
+
+<div class="about-cards-row">
+    <div class="about-card">
+        <h3>📬 Contact Us</h3>
+        <ul>
+            <li><strong>Email:</strong> slate@nyit.edu</li>
+            <li><strong>Location:</strong> Harry Schure Hall, Room 216A</li>
+            <li><strong>Meeting Times:</strong> Thursdays during Free Hour</li>
+        </ul>
+    </div>
+    <div class="about-card">
+        <h3>✍️ Join The Slate</h3>
+        <p style="font-size: 0.95em; color: var(--article-ink); line-height: 1.7;">
+            We're always looking for new members — writers, photographers,
+            designers, and videographers. Everyone is welcome, regardless of
+            major or experience.
+        </p>
+        <div class="card-cta">
+            <a href="mailto:slate@nyit.edu" class="btn">Get Involved</a>
+            <a href="/staff" class="btn btn-back">Meet the Team</a>
+        </div>
+    </div>
 </div>
 {% endblock %}
